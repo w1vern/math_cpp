@@ -214,11 +214,64 @@ std::ostream &operator<<(std::ostream &str, const Matrix &matrix)
 {
 	return str << matrix.ToString();
 }
-int main()
+
+
+
+Vector3d::Vector3d(double arr[], std::int32_t length)
 {
-	double arr[][5] = {{15, 12, 3, -1, -1}, {1, 4, 5, 15, 8}, {5, 7, -11, 7, 8}, {3, 2, 1, 6, 5}, {5, 1, 1, 2, -4}};
-	Matrix matrix{(double **)arr, 5, 5};
-	std::cout << matrix.Inverse() * matrix << "\n\n"
-			  << matrix.det();
-	return 0;
+
+}
+
+Vector3d Vector3d::operator+(const Vector3d&) const
+{
+
+}
+Vector3d Vector3d::operator+=(const Vector3d&)
+{
+
+}
+Vector3d Vector3d::operator-(const Vector3d&) const
+{
+
+}
+Vector3d Vector3d::operator-=(const Vector3d&)
+{
+
+}
+double Vector3d::operator*(const Vector3d&) const
+{
+
+}
+Vector3d Vector3d::operator*(double) const
+{
+
+}
+Vector3d Vector3d::operator*=(double)
+{
+
+}
+Vector3d Vector3d::operator/(double) const
+{
+
+}
+Vector3d Vector3d::operator/=(double)
+{
+
+}
+Vector3d Vector3d::operator^(const Vector3d&) const
+{
+
+}
+Vector3d Vector3d::operator^=(const Vector3d&)
+{
+
+}
+Vector3d Vector3d::operator-() const
+{
+
+}
+
+double Vector3d::lenght() const
+{
+
 }
