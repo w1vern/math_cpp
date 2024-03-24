@@ -4,8 +4,8 @@
 class Matrix
 {
 public:
-    Matrix(void* arr, std::uint32_t rows, std::uint32_t columns);
-    Matrix(std::uint32_t rows, std::uint32_t columns);
+    Matrix(double **arr, std::int32_t rows, std::int32_t columns);
+    Matrix(std::int32_t rows, std::int32_t columns);
     ~Matrix();
 
     Matrix operator +(const Matrix& matrix_2) const;
@@ -22,10 +22,10 @@ public:
     bool operator !=(const Matrix& matrix_2) const;
 
     double det() const;
-    double M(std::uint32_t row, std::uint32_t column) const;
-    Matrix getSubMatrix(std::uint32_t row, std::uint32_t column) const;
+    double M(std::int32_t row, std::int32_t column) const;
+    Matrix getSubMatrix(std::int32_t row, std::int32_t column) const;
     Matrix getAlgMatrix() const;
-    double getAlg(std::uint32_t row, std::uint32_t column) const;
+    double getAlg(std::int32_t row, std::int32_t column) const;
     Matrix T() const;
     Matrix Inverse() const;
 
@@ -33,8 +33,9 @@ public:
 
     friend std::ostream& operator <<(std::ostream& str, const Matrix& matrix); 
 
-    //private:
+    private:
     double **matrix;
-    std::uint32_t rows;
-    std::uint32_t columns;
+    std::int32_t rows;
+    std::int32_t columns;
 };
+
