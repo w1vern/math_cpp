@@ -1,5 +1,5 @@
 #pragma once
-#include "../source/const.h"
-#include "../source/matrix.h"
-#include "../source/vector2.h"
-#include "../source/vector3.h"
+#include "const.h"
+#include "matrix.h"
+#include "vector2.h"
+#include "vector3.h"

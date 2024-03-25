@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "../include/matrix.h"
 #include <string>
 
 mth::Matrix::Matrix(double **arr, std::int32_t rows, std::int32_t columns)
