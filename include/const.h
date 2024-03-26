@@ -1,7 +1,6 @@
 #pragma once
-namespace mth {
-
-#define pi 3.1415926535
-#define e  2.7182818284
-
+namespace mth
+{
+    const double pi = 3.1415926535;
+    const double e = 2.7182818284;
 }
