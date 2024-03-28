@@ -172,6 +172,12 @@ mth::Matrix mth::Matrix::Inverse() const
 {
 	return this->getAlgMatrix().T() / this->det();
 }
+double mth::Matrix::getEl(std::int32_t row, std::int32_t column)
+{
+	if(row >= rows || row < 0 || column >= columns || column < 0)
+		throw "incorrect index";
+	return matrix[row][column];
+}
 std::string mth::Matrix::ToString() const
 {
 	std::string **string = new std::string *[rows];

@@ -29,6 +29,7 @@ namespace mth {
         double getAlg(std::int32_t row, std::int32_t column) const;
         Matrix T() const;
         Matrix Inverse() const;
+        double getEl(std::int32_t, std::int32_t);
 
         std::string ToString() const;
 
