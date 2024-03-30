@@ -55,15 +55,15 @@ mth::Vector3 mth::Vector3::operator-() const
 	return mth::Vector3{ -_x, -_y, -_z };
 }
 
-double mth::Vector3::getX()
+double mth::Vector3::getX() const
 {
 	return _x;
 }
-double mth::Vector3::getY()
+double mth::Vector3::getY() const
 {
 	return _y;
 }
-double mth::Vector3::getZ()
+double mth::Vector3::getZ() const
 {
 	return _z;
 }

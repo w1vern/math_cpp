@@ -17,8 +17,8 @@ namespace mth {
         Vector2 operator/=(double);
         Vector2 operator-() const;
 
-        double getX();
-        double getY();
+        double getX() const;
+        double getY() const;
         double length() const;
         std::string ToString() const;
         friend std::ostream& operator <<(std::ostream&, const Vector2&);

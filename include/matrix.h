@@ -7,7 +7,7 @@ namespace mth {
     public:
         Matrix(double** arr, std::int32_t rows, std::int32_t columns);
         Matrix(std::int32_t rows, std::int32_t columns);
-        Matrix(std::int32_t rows, std::int32_t columns, bool, ...);
+        Matrix(std::int32_t rows, std::int32_t columns, std::initializer_list<double>);
         ~Matrix();
 
         Matrix operator +(const Matrix& matrix_2) const;
@@ -30,7 +30,7 @@ namespace mth {
         double getAlg(std::int32_t row, std::int32_t column) const;
         Matrix T() const;
         Matrix Inverse() const;
-        double getEl(std::int32_t, std::int32_t);
+        double getEl(std::int32_t, std::int32_t) const;
 
         std::string ToString() const;
 
@@ -38,7 +38,7 @@ namespace mth {
 
     private:
         double** _matrix;
-        std::int32_t rows;
-        std::int32_t columns;
+        std::int32_t _rows;
+        std::int32_t _columns;
     };
 }

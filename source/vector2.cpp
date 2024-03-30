@@ -45,11 +45,11 @@ mth::Vector2 mth::Vector2::operator-() const
 	return mth::Vector2{-_x, -_y};
 }
 
-double mth::Vector2::getX()
+double mth::Vector2::getX() const
 {
 	return _x;
 }
-double mth::Vector2::getY()
+double mth::Vector2::getY() const
 {
 	return _y;
 }
