@@ -1,35 +1,52 @@
 #include "../include/matrix.h"
 #include <string>
+#include <stdarg.h>
 
 mth::Matrix::Matrix(double **arr, std::int32_t rows, std::int32_t columns)
 {
 	this->rows = rows;
 	this->columns = columns;
-	this->matrix = new double *[this->rows];
+	this->_matrix = new double *[this->rows];
 	for (std::int32_t i = 0; i < this->rows; ++i)
-		this->matrix[i] = new double[this->columns];
+		this->_matrix[i] = new double[this->columns];
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
 		{
-			this->matrix[i][j] = *(double *)(arr + j + i * columns);
+			this->_matrix[i][j] = *(double *)(arr + j + i * columns);
 		}
 }
 mth::Matrix::Matrix(std::int32_t rows, std::int32_t columns)
 {
 	this->rows = rows;
 	this->columns = columns;
-	this->matrix = new double *[this->rows];
+	this->_matrix = new double *[this->rows];
 	for (std::int32_t i = 0; i < this->rows; ++i)
-		matrix[i] = new double[this->columns];
+		_matrix[i] = new double[this->columns];
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			this->matrix[i][j] = 0;
+			this->_matrix[i][j] = 0;
+}
+mth::Matrix::Matrix(std::int32_t rows, std::int32_t columns, bool rows_, ...)
+{
+	va_list args;
+	va_start(args, rows * columns);
+	this->rows = rows;
+	this->columns = columns;
+	this->_matrix = new double *[this->rows];
+	for (std::int32_t i = 0; i < this->rows; ++i)
+		_matrix[i] = new double[this->columns];
+	for (std::int32_t i = 0; i < this->rows; ++i)
+		for (std::int32_t j = 0; j < this->columns; ++j)
+			if (rows_)
+				this->_matrix[i][j] = va_arg(args, double);
+			else
+				this->_matrix[j][i] = va_arg(args, double);
 }
 mth::Matrix::~Matrix()
 {
 	for (std::int32_t i = 0; i < this->rows; ++i)
-		delete[] this->matrix[i];
-	delete[] this->matrix;
+		delete[] this->_matrix[i];
+	delete[] this->_matrix;
 }
 
 mth::Matrix mth::Matrix::operator+(const mth::Matrix &matrix_2) const
@@ -39,7 +56,7 @@ mth::Matrix mth::Matrix::operator+(const mth::Matrix &matrix_2) const
 	mth::Matrix result{this->rows, this->columns};
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			result.matrix[i][j] = this->matrix[i][j] + matrix_2.matrix[i][j];
+			result._matrix[i][j] = this->_matrix[i][j] + matrix_2._matrix[i][j];
 	return result;
 }
 mth::Matrix mth::Matrix::operator+=(const mth::Matrix &matrix_2)
@@ -53,7 +70,7 @@ mth::Matrix mth::Matrix::operator-(const mth::Matrix &matrix_2) const
 	mth::Matrix result{this->rows, this->columns};
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			result.matrix[i][j] = this->matrix[i][j] - matrix_2.matrix[i][j];
+			result._matrix[i][j] = this->_matrix[i][j] - matrix_2._matrix[i][j];
 	return result;
 }
 mth::Matrix mth::Matrix::operator-=(const mth::Matrix &matrix_2)
@@ -68,7 +85,7 @@ mth::Matrix mth::Matrix::operator*(const mth::Matrix &matrix_2) const
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < matrix_2.columns; ++j)
 			for (std::int32_t k = 0; k < this->columns; ++k)
-				result.matrix[i][j] += this->matrix[i][k] * matrix_2.matrix[k][j];
+				result._matrix[i][j] += this->_matrix[i][k] * matrix_2._matrix[k][j];
 	return result;
 }
 mth::Matrix mth::Matrix::operator*=(const mth::Matrix &matrix_2)
@@ -80,7 +97,7 @@ mth::Matrix mth::Matrix::operator*(double k) const
 	mth::Matrix result{rows, columns};
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			result.matrix[i][j] = this->matrix[i][j] * k;
+			result._matrix[i][j] = this->_matrix[i][j] * k;
 	return result;
 }
 mth::Matrix mth::Matrix::operator*=(double k)
@@ -92,7 +109,7 @@ mth::Matrix mth::Matrix::operator/(double k) const
 	mth::Matrix result{rows, columns};
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			result.matrix[i][j] = this->matrix[i][j] / k;
+			result._matrix[i][j] = this->_matrix[i][j] / k;
 	return result;
 }
 mth::Matrix mth::Matrix::operator/=(double k)
@@ -105,7 +122,7 @@ bool mth::Matrix::operator==(const mth::Matrix &matrix_2) const
 		return false;
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			if (this->matrix[i][j] != matrix_2.matrix[i][j])
+			if (this->_matrix[i][j] != matrix_2._matrix[i][j])
 				return false;
 	return true;
 }
@@ -119,14 +136,14 @@ double mth::Matrix::det() const
 	if (rows != columns)
 		throw "incorrect sizes";
 	if (rows == 1)
-		return matrix[0][0];
+		return _matrix[0][0];
 	if (rows == 2)
-		return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+		return _matrix[0][0] * _matrix[1][1] - _matrix[0][1] * _matrix[1][0];
 	if (rows == 3)
-		return matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[0][1] * matrix[1][2] * matrix[2][0] + matrix[0][2] * matrix[1][0] * matrix[2][1] - matrix[0][2] * matrix[1][1] * matrix[2][0] - matrix[0][1] * matrix[1][0] * matrix[2][2] - matrix[0][0] * matrix[1][2] * matrix[2][1];
+		return _matrix[0][0] * _matrix[1][1] * _matrix[2][2] + _matrix[0][1] * _matrix[1][2] * _matrix[2][0] + _matrix[0][2] * _matrix[1][0] * _matrix[2][1] - _matrix[0][2] * _matrix[1][1] * _matrix[2][0] - _matrix[0][1] * _matrix[1][0] * _matrix[2][2] - _matrix[0][0] * _matrix[1][2] * _matrix[2][1];
 	double res = 0;
 	for (int i = 0; i < rows; ++i)
-		res += getAlg(0, i) * matrix[0][i];
+		res += getAlg(0, i) * _matrix[0][i];
 	return res;
 }
 double mth::Matrix::M(std::int32_t row, std::int32_t column) const
@@ -143,7 +160,7 @@ mth::Matrix mth::Matrix::getSubMatrix(std::int32_t row, std::int32_t column) con
 			if (i == row || j == column)
 				continue;
 			else
-				result.matrix[i - static_cast<std::int32_t>(i >= row)][j - static_cast<std::int32_t>(j >= column)] = matrix[i][j];
+				result._matrix[i - static_cast<std::int32_t>(i >= row)][j - static_cast<std::int32_t>(j >= column)] = _matrix[i][j];
 	return result;
 }
 mth::Matrix mth::Matrix::getAlgMatrix() const
@@ -151,7 +168,7 @@ mth::Matrix mth::Matrix::getAlgMatrix() const
 	mth::Matrix result{rows, columns};
 	for (std::int32_t i = 0; i < this->rows; ++i)
 		for (std::int32_t j = 0; j < this->columns; ++j)
-			result.matrix[i][j] = getAlg(i, j);
+			result._matrix[i][j] = getAlg(i, j);
 	return result;
 }
 double mth::Matrix::getAlg(std::int32_t row, std::int32_t column) const
@@ -164,7 +181,7 @@ mth::Matrix mth::Matrix::T() const
 	for (std::int32_t i = 0; i < columns; ++i)
 		for (std::int32_t j = 0; j < rows; ++j)
 		{
-			result.matrix[i][j] = matrix[j][i];
+			result._matrix[i][j] = _matrix[j][i];
 		}
 	return result;
 }
@@ -174,9 +191,9 @@ mth::Matrix mth::Matrix::Inverse() const
 }
 double mth::Matrix::getEl(std::int32_t row, std::int32_t column)
 {
-	if(row >= rows || row < 0 || column >= columns || column < 0)
+	if (row >= rows || row < 0 || column >= columns || column < 0)
 		throw "incorrect index";
-	return matrix[row][column];
+	return _matrix[row][column];
 }
 std::string mth::Matrix::ToString() const
 {
@@ -189,7 +206,7 @@ std::string mth::Matrix::ToString() const
 	for (std::int32_t i = 0; i < rows; ++i)
 		for (std::int32_t j = 0; j < columns; ++j)
 		{
-			string[i][j] = std::to_string(matrix[i][j]);
+			string[i][j] = std::to_string(_matrix[i][j]);
 			if (string[i][j].length() > column_size[j])
 				column_size[j] = static_cast<std::int32_t>(string[i][j].length());
 		}

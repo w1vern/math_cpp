@@ -7,6 +7,7 @@ namespace mth {
     public:
         Matrix(double** arr, std::int32_t rows, std::int32_t columns);
         Matrix(std::int32_t rows, std::int32_t columns);
+        Matrix(std::int32_t rows, std::int32_t columns, bool, ...);
         ~Matrix();
 
         Matrix operator +(const Matrix& matrix_2) const;
@@ -36,7 +37,7 @@ namespace mth {
         friend std::ostream& operator <<(std::ostream& str, const Matrix& matrix);
 
     private:
-        double** matrix;
+        double** _matrix;
         std::int32_t rows;
         std::int32_t columns;
     };
