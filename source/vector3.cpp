@@ -2,11 +2,11 @@
 #include <cmath>
 #include <string>
 
-mth::Vector3::Vector3(double x, double y, double z) : _X(x), _Y(y), _Z(z) {}
+mth::Vector3::Vector3(double x, double y, double z) : _x(x), _y(y), _z(z) {}
 
 mth::Vector3 mth::Vector3::operator+(const mth::Vector3& vec) const
 {
-	return mth::Vector3{ _X + vec._X, _Y + vec._Y, _Z + vec._Z };
+	return mth::Vector3{ _x + vec._x, _y + vec._y, _z + vec._z };
 }
 mth::Vector3 mth::Vector3::operator+=(const mth::Vector3& vec)
 {
@@ -14,7 +14,7 @@ mth::Vector3 mth::Vector3::operator+=(const mth::Vector3& vec)
 }
 mth::Vector3 mth::Vector3::operator-(const mth::Vector3& vec) const
 {
-	return mth::Vector3{ _X - vec._X, _Y - vec._Y, _Z - vec._Z };
+	return mth::Vector3{ _x - vec._x, _y - vec._y, _z - vec._z };
 }
 mth::Vector3 mth::Vector3::operator-=(const mth::Vector3& vec)
 {
@@ -22,11 +22,11 @@ mth::Vector3 mth::Vector3::operator-=(const mth::Vector3& vec)
 }
 double mth::Vector3::operator*(const mth::Vector3& vec) const
 {
-	return _X * vec._X + _Y * vec._Y + _Z * vec._Z;
+	return _x * vec._x + _y * vec._y + _z * vec._z;
 }
 mth::Vector3 mth::Vector3::operator*(double k) const
 {
-	return mth::Vector3{ _X * k, _Y * k, _Z * k };
+	return mth::Vector3{ _x * k, _y * k, _z * k };
 }
 mth::Vector3 mth::Vector3::operator*=(double k)
 {
@@ -34,7 +34,7 @@ mth::Vector3 mth::Vector3::operator*=(double k)
 }
 mth::Vector3 mth::Vector3::operator/(double k) const
 {
-	return mth::Vector3{ _X / k, _Y / k, _Z / k };
+	return mth::Vector3{ _x / k, _y / k, _z / k };
 }
 mth::Vector3 mth::Vector3::operator/=(double k)
 {
@@ -42,9 +42,9 @@ mth::Vector3 mth::Vector3::operator/=(double k)
 }
 mth::Vector3 mth::Vector3::operator^(const mth::Vector3& vec) const
 {
-	return mth::Vector3{ _Y * vec._Z - vec._Y * _Z,
-		vec._X * _Z - _X * vec._Z,
-		_X * vec._Y - vec._X * _Y };
+	return mth::Vector3{ _y * vec._z - vec._y * _z,
+		vec._x * _z - _x * vec._z,
+		_x * vec._y - vec._x * _y };
 }
 mth::Vector3 mth::Vector3::operator^=(const mth::Vector3& vec)
 {
@@ -52,16 +52,28 @@ mth::Vector3 mth::Vector3::operator^=(const mth::Vector3& vec)
 }
 mth::Vector3 mth::Vector3::operator-() const
 {
-	return mth::Vector3{ -_X, -_Y, -_Z };
+	return mth::Vector3{ -_x, -_y, -_z };
 }
 
+double mth::Vector3::getX()
+{
+	return _x;
+}
+double mth::Vector3::getY()
+{
+	return _y;
+}
+double mth::Vector3::getZ()
+{
+	return _z;
+}
 double mth::Vector3::length() const
 {
-	return std::sqrt(_X * _X + _Y * _Y + _Z * _Z);
+	return std::sqrt(_x * _x + _y * _y + _z * _z);
 }
 std::string mth::Vector3::ToString() const
 {
-	return std::string{ std::to_string(_X) + ' ' + std::to_string(_Y) + ' ' + std::to_string(_Z)};
+	return std::string{ std::to_string(_x) + ' ' + std::to_string(_y) + ' ' + std::to_string(_z)};
 }
 std::ostream& operator <<(std::ostream& str, const mth::Vector3& vec)
 {

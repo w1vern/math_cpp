@@ -17,12 +17,14 @@ namespace mth {
         Vector2 operator/=(double);
         Vector2 operator-() const;
 
+        double getX();
+        double getY();
         double length() const;
         std::string ToString() const;
         friend std::ostream& operator <<(std::ostream&, const Vector2&);
 
     private:
-        double _X;
-        double _Y;
+        double _x;
+        double _y;
     };
 }

@@ -19,13 +19,16 @@ namespace mth {
         Vector3 operator^=(const Vector3&);
         Vector3 operator-() const;
 
+        double getX();
+        double getY();
+        double getZ();
         double length() const;
         std::string ToString() const;
         friend std::ostream& operator <<(std::ostream&, const Vector3&);
 
     private:
-        double _X;
-        double _Y;
-        double _Z;
+        double _x;
+        double _y;
+        double _z;
     };
 }
