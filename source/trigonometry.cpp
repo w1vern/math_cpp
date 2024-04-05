@@ -1,4 +1,4 @@
-#include "../include/functions.h"
+#include "../include/trigonometry.h"
 #include "../include/const.h"
 #include <cmath>
 
