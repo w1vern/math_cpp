@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.3)
 
-project(math_cpp)
+set(PROJECT_NAME math_cpp)
+
+project(${PROJECT_NAME})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-add_library(math_lib STATIC source/matrix.cpp source/vector2.cpp source/vector3.cpp source/trigonometry.cpp)
+add_library(${PROJECT_NAME} STATIC source/matrix.cpp source/vector2.cpp source/vector3.cpp source/trigonometry.cpp)
