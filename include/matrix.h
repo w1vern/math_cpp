@@ -5,6 +5,7 @@ namespace mth {
     class Matrix
     {
     public:
+        Matrix();
         Matrix(double** arr, std::int32_t rows, std::int32_t columns);
         Matrix(std::int32_t rows, std::int32_t columns);
         Matrix(std::int32_t rows, std::int32_t columns, std::initializer_list<double>);

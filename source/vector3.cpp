@@ -2,6 +2,7 @@
 #include <cmath>
 #include <string>
 
+mth::Vector3::Vector3() : Vector3(0, 0, 0) {}
 mth::Vector3::Vector3(double x, double y, double z) : _x(x), _y(y), _z(z) {}
 
 mth::Vector3 mth::Vector3::operator+(const mth::Vector3& vec) const

@@ -2,6 +2,7 @@
 #include <cmath>
 #include <string>
 
+mth::Vector2::Vector2() : Vector2(0, 0) {}
 mth::Vector2::Vector2(double x, double y) : _x(x), _y(y) {}
 
 mth::Vector2 mth::Vector2::operator+(const mth::Vector2 &vec) const

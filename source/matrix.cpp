@@ -1,6 +1,7 @@
 #include "../include/matrix.h"
 #include <string>
 
+mth::Matrix::Matrix() : Matrix(1, 1) {}
 mth::Matrix::Matrix(double **arr, std::int32_t rows, std::int32_t columns)
 {
 	this->_rows = rows;
