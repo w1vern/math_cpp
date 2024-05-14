@@ -6,42 +6,41 @@ mth::Matrix::Matrix(double **arr, std::int32_t rows, std::int32_t columns)
 {
 	this->_rows = rows;
 	this->_columns = columns;
-	this->_matrix = new double *[this->_rows];
 	for (std::int32_t i = 0; i < this->_rows; ++i)
-		this->_matrix[i] = new double[this->_columns];
-	for (std::int32_t i = 0; i < this->_rows; ++i)
+	{
+		this->_matrix.push_back(std::vector<double>{});
 		for (std::int32_t j = 0; j < this->_columns; ++j)
-			this->_matrix[i][j] = *(double *)(arr + j + i * columns);
+			this->_matrix[i].push_back(*(double *)(arr + j + i * columns));
+	}
 }
 mth::Matrix::Matrix(std::int32_t rows, std::int32_t columns)
 {
 	this->_rows = rows;
 	this->_columns = columns;
-	this->_matrix = new double *[this->_rows];
 	for (std::int32_t i = 0; i < this->_rows; ++i)
-		_matrix[i] = new double[this->_columns];
-	for (std::int32_t i = 0; i < this->_rows; ++i)
+	{
+		this->_matrix.push_back(std::vector<double>{});
 		for (std::int32_t j = 0; j < this->_columns; ++j)
-			this->_matrix[i][j] = 0;
+			this->_matrix[i].push_back(0);
+	}
 }
 mth::Matrix::Matrix(std::int32_t rows, std::int32_t columns, std::initializer_list<double> array)
 {
 	this->_rows = rows;
 	this->_columns = columns;
-	this->_matrix = new double *[this->_rows];
-	for (std::int32_t i = 0; i < this->_rows; ++i)
-		_matrix[i] = new double[this->_columns];
 	std::initializer_list<double>::iterator el = array.begin();
 	for (std::int32_t i = 0; i < this->_rows; ++i)
+	{
+		this->_matrix.push_back(std::vector<double>{});
 		for (std::int32_t j = 0; j < this->_columns; ++j)
-			_matrix[i][j] = *el++;
-		
+			this->_matrix[i].push_back(*el++);
+	}
 }
 mth::Matrix::~Matrix()
 {
-	for (std::int32_t i = 0; i < this->_rows; ++i)
-		delete[] this->_matrix[i];
-	delete[] this->_matrix;
+	for (std::vector<std::vector<double>>::iterator iter = _matrix.begin(); iter < _matrix.end(); ++iter)
+		iter->clear();
+	_matrix.clear();
 }
 
 mth::Matrix mth::Matrix::operator+(const mth::Matrix &matrix_2) const

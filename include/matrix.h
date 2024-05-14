@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <cstdint>
 namespace mth {
     class Matrix
@@ -38,7 +39,7 @@ namespace mth {
         friend std::ostream& operator <<(std::ostream& str, const Matrix& matrix);
 
     private:
-        double** _matrix;
+        std::vector<std::vector<double>> _matrix;
         std::int32_t _rows;
         std::int32_t _columns;
     };
