@@ -10,6 +10,8 @@ namespace mth {
         Matrix(double** arr, std::int32_t rows, std::int32_t columns);
         Matrix(std::int32_t rows, std::int32_t columns);
         Matrix(std::int32_t rows, std::int32_t columns, std::initializer_list<double>);
+        Matrix(const Matrix&);
+        Matrix(Matrix&&);
         ~Matrix();
 
         Matrix operator +(const Matrix& matrix_2) const;
@@ -24,6 +26,9 @@ namespace mth {
         Matrix operator /=(double k);
         bool operator ==(const Matrix& matrix_2) const;
         bool operator !=(const Matrix& matrix_2) const;
+        
+        const Matrix& operator=(const Matrix&);
+        const Matrix& operator=(Matrix&&);
 
         double det() const;
         double M(std::int32_t row, std::int32_t column) const;
