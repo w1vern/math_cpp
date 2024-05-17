@@ -1,5 +1,7 @@
 #include <iostream>
-#include <include/math_cpp.h>
+#include "../include/math_cpp.h"
+
+using namespace mth;
 
 int main()
 {
