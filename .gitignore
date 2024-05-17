@@ -2,7 +2,7 @@
 build/
 export/
 test/
-test/main.cpp
+
 
 *.exe
 *.o
