@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(project_name test_math_cpp)
+
+project(${project_name})
+
+add_executable(${project_name} main.cpp)
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../ ${CMAKE_CURRENT_BINARY_DIR}/build_math_cpp)
+
+target_link_libraries(${project_name} math_cpp)
+

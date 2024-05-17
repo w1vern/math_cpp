@@ -1,0 +1,12 @@
+.vscode/
+build/
+export/
+#test/
+
+*.exe
+*.o
+*.dll
+*.lib
+*.dll.a
+*.a
+*.so
