@@ -6,6 +6,8 @@ namespace mth {
     public:
         Vector2();
         Vector2(double x, double y);
+        Vector2(const Vector2& origin);
+        Vector2(Vector2&& moved);
 
         Vector2 operator+(const Vector2&) const;
         Vector2 operator+=(const Vector2&);
@@ -17,6 +19,9 @@ namespace mth {
         Vector2 operator/(double) const;
         Vector2 operator/=(double);
         Vector2 operator-() const;
+
+        Vector2 operator=(const Vector2& origin);
+        Vector2 operator=(Vector2&& moved);
 
         double getX() const;
         double getY() const;
