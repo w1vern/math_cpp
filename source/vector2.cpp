@@ -1,4 +1,4 @@
-#include "../include/vector2.h"
+#include <vector2.h>
 #include <cmath>
 #include <string>
 
@@ -71,24 +71,28 @@ namespace mth
 		return *this;
 	}
 
-	double Vector2::getX() const
+	double Vector2::x() const
 	{
 		return _x;
 	}
-	double Vector2::getY() const
+	double Vector2::y() const
 	{
 		return _y;
-	}
+	}	
 	double Vector2::length() const
 	{
 		return std::sqrt(_x * _x + _y * _y);
 	}
-	std::string Vector2::ToString() const
+	Matrix Vector2::to_matrix() const 
+	{
+		return Matrix{1, 2, {_x, _y}};
+	}
+	std::string Vector2::to_string() const
 	{
 		return std::string{std::to_string(_x) + ' ' + std::to_string(_y)};
-	}
+	}	
 	std::ostream &operator<<(std::ostream &str, const Vector2 &vec)
 	{
-		return str << vec.ToString();
+		return str << vec.to_string();
 	}
 }

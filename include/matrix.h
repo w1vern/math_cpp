@@ -2,6 +2,10 @@
 #include <iostream>
 #include <vector>
 #include <cstdint>
+
+#include "vector3.h"
+#include "vector2.h"
+
 namespace mth {
     class Matrix
     {
@@ -32,14 +36,16 @@ namespace mth {
 
         double det() const;
         double M(std::int32_t row, std::int32_t column) const;
-        Matrix getSubMatrix(std::int32_t row, std::int32_t column) const;
-        Matrix getAlgMatrix() const;
-        double getAlg(std::int32_t row, std::int32_t column) const;
+        Matrix get_submatrix(std::int32_t row, std::int32_t column) const;
+        Matrix get_alg_matrix() const;
+        double get_alg(std::int32_t row, std::int32_t column) const;
         Matrix T() const;
-        Matrix Inverse() const;
-        double getEl(std::int32_t, std::int32_t) const;
+        Matrix get_inverse() const;
+        double el_by_index(std::int32_t, std::int32_t) const;
 
-        std::string ToString() const;
+        Vector2 to_vector2() const;
+        Vector3 to_vector3() const;
+        std::string to_string() const;
 
         friend std::ostream& operator <<(std::ostream& str, const Matrix& matrix);
 

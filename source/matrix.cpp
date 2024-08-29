@@ -1,4 +1,4 @@
-#include "../include/matrix.h"
+#include <matrix.h>
 #include <string>
 
 namespace mth
@@ -46,7 +46,7 @@ namespace mth
 		for (auto i = origin._matrix.begin(); i < origin._matrix.end(); ++i)
 		{
 			this->_matrix.push_back(std::vector<double>{});
-			for(auto j = i->begin();j<i->end();++j)
+			for (auto j = i->begin(); j < i->end(); ++j)
 				this->_matrix.back().push_back(*j);
 		}
 	}
@@ -154,7 +154,7 @@ namespace mth
 		for (auto i = origin._matrix.begin(); i < origin._matrix.end(); ++i)
 		{
 			this->_matrix.push_back(std::vector<double>{});
-			for(auto j = i->begin();j<i->end();++j)
+			for (auto j = i->begin(); j < i->end(); ++j)
 				this->_matrix.back().push_back(*j);
 		}
 		return *this;
@@ -181,14 +181,14 @@ namespace mth
 			return _matrix[0][0] * _matrix[1][1] * _matrix[2][2] + _matrix[0][1] * _matrix[1][2] * _matrix[2][0] + _matrix[0][2] * _matrix[1][0] * _matrix[2][1] - _matrix[0][2] * _matrix[1][1] * _matrix[2][0] - _matrix[0][1] * _matrix[1][0] * _matrix[2][2] - _matrix[0][0] * _matrix[1][2] * _matrix[2][1];
 		double res = 0;
 		for (int i = 0; i < _rows; ++i)
-			res += getAlg(0, i) * _matrix[0][i];
+			res += get_alg(0, i) * _matrix[0][i];
 		return res;
 	}
 	double Matrix::M(std::int32_t row, std::int32_t column) const
 	{
-		return getSubMatrix(row, column).det();
+		return get_submatrix(row, column).det();
 	}
-	Matrix Matrix::getSubMatrix(std::int32_t row, std::int32_t column) const
+	Matrix Matrix::get_submatrix(std::int32_t row, std::int32_t column) const
 	{
 		if (row >= _rows || column >= _columns)
 			throw "incorrect sizes";
@@ -201,15 +201,15 @@ namespace mth
 					result._matrix[i - static_cast<std::int32_t>(i >= row)][j - static_cast<std::int32_t>(j >= column)] = _matrix[i][j];
 		return result;
 	}
-	Matrix Matrix::getAlgMatrix() const
+	Matrix Matrix::get_alg_matrix() const
 	{
 		mth::Matrix result{_rows, _columns};
 		for (std::int32_t i = 0; i < this->_rows; ++i)
 			for (std::int32_t j = 0; j < this->_columns; ++j)
-				result._matrix[i][j] = getAlg(i, j);
+				result._matrix[i][j] = get_alg(i, j);
 		return result;
 	}
-	double Matrix::getAlg(std::int32_t row, std::int32_t column) const
+	double Matrix::get_alg(std::int32_t row, std::int32_t column) const
 	{
 		return (1 - ((row + column) & 1) * 2) * M(row, column);
 	}
@@ -223,17 +223,34 @@ namespace mth
 			}
 		return result;
 	}
-	Matrix Matrix::Inverse() const
+	Matrix Matrix::get_inverse() const
 	{
-		return this->getAlgMatrix().T() / this->det();
+		return this->get_alg_matrix().T() / this->det();
 	}
-	double Matrix::getEl(std::int32_t row, std::int32_t column) const
+	double Matrix::el_by_index(std::int32_t row, std::int32_t column) const
 	{
 		if (row >= _rows || row < 0 || column >= _columns || column < 0)
 			throw "incorrect index";
 		return _matrix[row][column];
 	}
-	std::string Matrix::ToString() const
+
+	Vector2 Matrix::to_vector2() const
+	{
+		if (_rows == 2 && _columns == 1)
+			return Vector2(_matrix[0][0], _matrix[1][0]);
+		if (_rows == 1 && _columns == 2)
+			return Vector2(_matrix[0][0], _matrix[0][1]);
+		throw "not possible to transform this matrix into Vector2";
+	}
+	Vector3 Matrix::to_vector3() const
+	{
+		if (_rows == 3 && _columns == 1)
+			return Vector3(_matrix[0][0], _matrix[1][0], _matrix[2][0]);
+		if (_rows == 1 && _columns == 3)
+			return Vector3(_matrix[0][0], _matrix[0][1], _matrix[0][2]);
+		throw "not possible to transform this matrix into Vector3";
+	}
+	std::string Matrix::to_string() const
 	{
 		std::string **string = new std::string *[_rows];
 		for (std::int32_t i = 0; i < _rows; ++i)
@@ -271,6 +288,6 @@ namespace mth
 	}
 	std::ostream &operator<<(std::ostream &str, const Matrix &matrix)
 	{
-		return str << matrix.ToString();
+		return str << matrix.to_string();
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cstdint>
+#include <matrix.h>
 namespace mth {
     class Vector2 {
     public:
@@ -23,10 +24,12 @@ namespace mth {
         Vector2 operator=(const Vector2& origin);
         Vector2 operator=(Vector2&& moved);
 
-        double getX() const;
-        double getY() const;
+        double x() const;
+        double y() const;
         double length() const;
-        std::string ToString() const;
+
+        Matrix to_matrix() const;
+        std::string to_string() const;
         friend std::ostream& operator <<(std::ostream&, const Vector2&);
 
     private:
