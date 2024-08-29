@@ -1,4 +1,5 @@
-#include <vector2.h>
+#include "../include/vector2.h"
+#include "../include/matrix.h"
 #include <cmath>
 #include <string>
 

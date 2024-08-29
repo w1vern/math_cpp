@@ -1,4 +1,6 @@
-#include <matrix.h>
+#include "../include/matrix.h"
+#include "../include/vector2.h"
+#include "../include/vector3.h"
 #include <string>
 
 namespace mth

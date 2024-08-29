@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <cstdint>
-#include <matrix.h>
 namespace mth {
+
+    class Matrix;
     class Vector2 {
     public:
         Vector2();

@@ -3,10 +3,10 @@
 #include <vector>
 #include <cstdint>
 
-#include "vector3.h"
-#include "vector2.h"
-
 namespace mth {
+
+    class Vector2;
+    class Vector3;
     class Matrix
     {
     public:

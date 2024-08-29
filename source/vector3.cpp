@@ -1,4 +1,5 @@
-#include <vector3.h>
+#include "../include/vector3.h"
+#include "../include/matrix.h"
 #include <cmath>
 #include <string>
 
